@@ -8,6 +8,7 @@ namespace BowlingGame
     {
         private readonly List<int> _rolls = new List<int>();
         private const int TotalPinCount = 10;
+        private const int TotalFrameCount = 10;
 
         public void Roll(int pins)
         {
@@ -17,50 +18,41 @@ namespace BowlingGame
         public int Score()
         {
             var score = 0;
+            var rollIndex = 0;
 
-            for (var rollIndex = 0; rollIndex < _rolls.Count; rollIndex++)
+            for (var frameIndex = 1; frameIndex <= TotalFrameCount; frameIndex++)
             {
-                score += _rolls[rollIndex];
-
-                if (IsSpare(rollIndex))
+                if (IsStrike(_rolls[rollIndex]))
                 {
-                    score += GetSpareBonus(rollIndex);
+                    score += _rolls[rollIndex] + IsStrikeBonus(rollIndex);
+                    rollIndex += 1;
                 }
-                else if (IsStrike(rollIndex))
+                else if (IsSpare(_rolls[rollIndex], _rolls[rollIndex + 1]))
                 {
-                    score += GetStrikeBonus(rollIndex);
+                    score += 10 + _rolls[rollIndex + 2];
+                    rollIndex += 2;
+                }
+                else
+                {
+                    score += _rolls[rollIndex] + _rolls[rollIndex + 1];
+                    rollIndex += 2;
                 }
             }
 
             return score;
         }
 
-        private bool IsEndOfFrame(int rollIndex)
+        private bool IsSpare(int roll1, int roll2)
         {
-            return (rollIndex + 1) % 2 == 0;
+            return roll1 < 10 && roll1 + roll2 == 10;
         }
 
-        private bool IsSpare(int rollIndex)
+        private bool IsStrike(int roll)
         {
-            if (IsEndOfFrame(rollIndex))
-            {
-                return _rolls[rollIndex - 1] + _rolls[rollIndex] == TotalPinCount;
-            }
-
-            return false;
+            return roll == TotalPinCount;
         }
 
-        private bool IsStrike(int rollIndex)
-        {
-            return _rolls[rollIndex] == TotalPinCount;
-        }
-
-        private int GetSpareBonus(int rollIndex)
-        {
-            return _rolls[rollIndex + 1];
-        }
-
-        private int GetStrikeBonus(int rollIndex)
+        private int IsStrikeBonus(int rollIndex)
         {
             return _rolls[rollIndex + 1] + _rolls[rollIndex + 2];
         }

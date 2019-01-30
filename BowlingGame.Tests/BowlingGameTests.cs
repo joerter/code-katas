@@ -48,8 +48,7 @@ namespace BowlingGame.Tests
         [Test]
         public void GivenScore_WhenRollOfOne_ThenScoreShouldBeOne()
         {
-            SetupRolls(1, 1);
-            SetupRolls(0, 19);
+            RollGame(1);
 
             var score = _game.Score();
 
@@ -59,9 +58,7 @@ namespace BowlingGame.Tests
         [Test]
         public void GivenScore_WhenRollOneSpareAndThenGuttersOnlyInGame_ThenScoreShouldBe10()
         {
-            SetupRolls(1, 1);
-            SetupRolls(9, 1);
-            SetupRolls(0, 18);
+            RollGame(1, 9);
 
             var score = _game.Score();
 
@@ -71,21 +68,18 @@ namespace BowlingGame.Tests
         [Test]
         public void GivenScore_WhenRollOneSpareAnd1PinInNextTurnInGame_ThenScoreShouldBe12()
         {
-            SetupRolls(1, 1);
-            SetupRolls(9, 1);
-            SetupRolls(1, 1);
-            SetupRolls(0, 17);
+            RollGame(1, 9, 1);
 
             var score = _game.Score();
 
             Assert.AreEqual(12, score);
         }
-        
+
         [Test]
         public void GivenScore_WhenRollTwoSparesInARowAnd1PinInNextTurnInGame_ThenScoreShouldBe12()
         {
             RollGame(1, 9, 5, 5, 3);
- 
+
             var score = _game.Score();
 
             Assert.AreEqual(31, score);
@@ -111,6 +105,24 @@ namespace BowlingGame.Tests
             Assert.AreEqual(13, score);
         }
 
-        //Strike and Spare
+        [Test]
+        public void GivenScore_WhenStrikeFollowedBySpare_ThenScoreStrikeAndSpare()
+        {
+            RollGame(10, 9, 1, 1);
+
+            var score = _game.Score();
+
+            Assert.AreEqual(32, score);
+        }
+
+        [Test]
+        public void GivenScore_WhenPerfectGame_ThenScoreShouldBe300()
+        {
+            SetupRolls(10,12);
+
+            var score = _game.Score();
+
+            Assert.AreEqual(300, score);
+        }
     }
 }
