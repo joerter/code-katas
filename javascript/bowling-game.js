@@ -7,15 +7,13 @@ class Game {
     roll(pins) {
         this.rolls[this.rollIndex++] = pins;
     }
-    
 
     get score() {
-        console.log(this.rolls);
         let gameScore = 0;
         let rollIndex = 0;
 
-        for(let frame = 0; frame < 10; frame++){
-            let frameScore = this.rolls[rollIndex] + this.rolls[rollIndex+1]
+        for (let frame = 0; frame < 10; frame++) {
+            let frameScore = this.rolls[rollIndex] + this.rolls[rollIndex + 1];
 
             if (this.isStrike(this.rolls[rollIndex])) {
                 gameScore += this.strikeBonus(rollIndex);
@@ -29,7 +27,7 @@ class Game {
                 gameScore += frameScore;
             }
 
-            rollIndex += 2
+            rollIndex += 2;
         }
 
         return gameScore;
