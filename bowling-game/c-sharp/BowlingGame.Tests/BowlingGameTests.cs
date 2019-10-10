@@ -5,5 +5,6 @@ namespace BowlingGame.Tests
     [TestFixture]
     public class BowlingGameTests
     {
+
     }
 }
