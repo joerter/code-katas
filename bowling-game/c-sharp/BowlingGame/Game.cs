@@ -37,8 +37,7 @@ namespace BowlingGame
                 RollIndex = 0
             };
 
-            return frames
-                .Aggregate(startingState, (state, frameIndex) => GetNextGameState(state)).Score;
+            return frames.Aggregate(startingState, (state, frameIndex) => GetNextGameState(state)).Score;
         }
         private GameState GetNextGameState(GameState previousState)
         {
