@@ -1,0 +1,28 @@
+{
+    "name": "ts",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "tsc && jasmine",
+        "cucumber": "tsc && cucumber-js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/chai": "^4.1.7",
+        "@types/cucumber": "^4.0.5",
+        "@types/jasmine": "^3.3.13",
+        "chai": "^4.2.0",
+        "cucumber": "^5.1.0",
+        "jasmine": "^3.4.0",
+        "jasmine-spec-reporter": "^4.2.1",
+        "prettier": "^1.17.1",
+        "typescript": "^3.5.1"
+    },
+    "prettier": {
+        "tabWidth": 4,
+        "singleQuote": true
+    }
+}
