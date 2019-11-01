@@ -46,7 +46,6 @@ describe('evolve-grid', () => {
         expect(result).toEqual(dead);
     });
 
-    // turn Grid into a class with constructor
     it('should return a grid with cells living to the next generation when each has 2 neighbors', () => {
         const twoNeighbors = [
             ['-', '-', '*'],
