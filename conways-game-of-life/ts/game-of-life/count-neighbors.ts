@@ -1,32 +1,85 @@
 import { Grid } from "./grid";
 
-export function getNeighborCount(grid: Grid, yIndex: number, xIndex: number) {
-    let xCounter = -1;
-    let yCounter = -1;
+// export function getNeighborCount(grid: Grid, yCoordinate: number, xCoordinate: number) {
+//     let xOffset = -1;
+//     let yOffset = -1;
+//     let neighborCount = 0;
+//     while (yOffset < 2) {
+//         console.log('yCounter', yOffset);
+//         let derivedY = yCoordinate + yOffset;
+//         console.log('derivedY', derivedY);
+//         if (derivedY < 0 || derivedY > grid.length) {
+//             yOffset++;
+//             console.log('yCounter++ result', yOffset);
+//             continue;
+//         }
+//         while (xOffset < 2) {
+//             console.log('xCounter', xOffset);
+//             let derivedX = xCoordinate + xOffset;
+//             console.log('derivedX', derivedX);
+
+//             if (derivedX < 0 || derivedX > grid[0].length) {
+//                 xOffset++;
+//                 console.log('xCounter++  line 5 result', xOffset);
+//                 continue;
+//             }
+//             if (xOffset === 0 && yOffset === 0) {
+//                 xOffset++;
+//                 console.log('xCounter++ line 28 result', xOffset);
+//                 continue;
+//             }
+//             let currentCoordinate = grid[derivedY][derivedX];
+//             console.log('currentCoordinate', currentCoordinate);
+//             if (currentCoordinate === '*') {
+//                 neighborCount++;
+//                 console.log('neighborCount', neighborCount);
+//             }
+//             xOffset++;
+//             console.log('xCounter++ line 38', xOffset);
+//         }
+//         xOffset = -1;
+//         yOffset++;
+//         console.log('yCounter++ line 41', yOffset);
+//     }
+//     return neighborCount;
+// }
+
+
+
+export function getNeighborCount(grid: Grid, yCoordinate: number, xCoordinate: number) {
     let neighborCount = 0;
-    while (yCounter < 2) {
-        let derivedY = yIndex + yCounter;
+
+    for (let yOffset = -1; yOffset < 2; yOffset++) {
+        console.log('yCounter', yOffset);
+        let derivedY = yCoordinate + yOffset;
+        console.log('derivedY', derivedY);
         if (derivedY < 0 || derivedY > grid.length) {
-            yCounter++;
+            console.log('yCounter++ result', yOffset);
             continue;
         }
-        while (xCounter < 2) {
-            let derivedX = xIndex + xCounter;
+        for (let xOffset = -1; xOffset < 2; xOffset++) {
+            console.log('xCounter', xOffset);
+            let derivedX = xCoordinate + xOffset;
+            console.log('derivedX', derivedX);
+
             if (derivedX < 0 || derivedX > grid[0].length) {
-                xCounter++;
+                console.log('xCounter++  line 5 result', xOffset);
                 continue;
             }
-            if (xCounter === 0 && yCounter === 0) {
-                xCounter++;
+            if (xOffset === 0 && yOffset === 0) {
+                console.log('xCounter++ line 28 result', xOffset);
                 continue;
             }
             let currentCoordinate = grid[derivedY][derivedX];
+            console.log('currentCoordinate', currentCoordinate);
             if (currentCoordinate === '*') {
                 neighborCount++;
+                console.log('neighborCount', neighborCount);
             }
-            xCounter++;
+            console.log('xCounter++ line 38', xOffset);
         }
-        yCounter++;
+        console.log('yCounter++ line 41', yOffset);
     }
+
     return neighborCount;
 }

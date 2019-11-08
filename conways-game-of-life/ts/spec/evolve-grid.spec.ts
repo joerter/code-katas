@@ -46,7 +46,7 @@ describe('evolve-grid', () => {
         expect(result).toEqual(dead);
     });
 
-    it('should return a grid with cells living to the next generation when each has 2 neighbors', () => {
+    xit('should return a grid with cells living to the next generation when each has 2 neighbors', () => {
         const twoNeighbors = [
             ['-', '*', '*'],
             ['-', '*', '*'],

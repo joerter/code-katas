@@ -31,7 +31,7 @@ Feature: Conway's Game of Life
             ---
             """
 
-    Scenario: A live cell with 2 neighbors lives on to the next generation
+    Scenario: A dead cell with 3 live neighbors becomes a live cell in the next generation
         Given I have supplied the following "generation"
             """
             --*
