@@ -1,4 +1,3 @@
-import { Grid } from "../game-of-life/grid";
 import { getNeighborCount } from "../game-of-life/count-neighbors";
 
 describe('count-neighbors', () => {
@@ -40,7 +39,19 @@ describe('count-neighbors', () => {
         expect(result).toEqual(8);
     })
 
-    it('should return 0 when not touching any neigbors but there is a live non-neighbor', () => {
+    it('should return 5 when there are 5 living neighbors and dot on the edge', () => {
+        const eightLivingNeighbors = [
+            ['-', '*', '*'],
+            ['-', '*', '*'],
+            ['-', '*', '*']
+        ];
+
+        const result = getNeighborCount(eightLivingNeighbors, 1, 2);
+
+        expect(result).toEqual(5);
+    })
+
+    it('should return 0 when not touching any neighbors but there is a live non-neighbor', () => {
         const eightLivingNeighbors = [
             ['-', '-', '-','*','-'],
             ['-', '-', '-','-','-'],
@@ -52,5 +63,5 @@ describe('count-neighbors', () => {
         const result = getNeighborCount(eightLivingNeighbors, 3, 1);
 
         expect(result).toEqual(0);
-    })
+    });
 });

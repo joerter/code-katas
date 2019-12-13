@@ -46,7 +46,7 @@ describe('evolve-grid', () => {
         expect(result).toEqual(dead);
     });
 
-    xit('should return a grid with cells living to the next generation when each has 2 neighbors', () => {
+    it('should return a grid with cells living to the next generation when each has 2 neighbors', () => {
         const twoNeighbors = [
             ['-', '*', '*'],
             ['-', '*', '*'],
@@ -61,5 +61,58 @@ describe('evolve-grid', () => {
         const result = evolveGrid(twoNeighbors);
 
         expect(result).toEqual(expected);
+    });
+
+    it('return a grid with a singe alive cell when there are three live cells in a diagonal line (y=-x for the math people)', () => {
+        const diagonal = [
+            ['*', '-', '-'],
+            ['-', '*', '-'],
+            ['-', '-', '*']
+        ];
+        const singleLiveCell = [
+            ['-', '-', '-'],
+            ['-', '*', '-'],
+            ['-', '-', '-']
+        ];
+
+        const result = evolveGrid(diagonal);
+
+        expect(result).toEqual(singleLiveCell);
+    });
+
+    it('should return a block when there are three live cells surrounding a dead cell', () => {
+        const lShape = [
+            ['*', '*', '-'],
+            ['*', '-', '-'],
+            ['-', '-', '-']
+        ];
+        const block = [
+            ['*', '*', '-'],
+            ['*', '*', '-'],
+            ['-', '-', '-']
+        ];
+
+        const result = evolveGrid(lShape);
+
+        expect(result).toEqual(block);
+    });
+
+    it('should return a horizontalLine when fed a verticalLine', () => {
+        const verticalLine = [
+            ['-', '*', '-'],
+            ['-', '*', '-'],
+            ['-', '*', '-']
+        ];
+        const horizontalLine = [
+            ['-', '-', '-'],
+            ['*', '*', '*'],
+            ['-', '-', '-']
+        ];
+
+        const testHorizontal = evolveGrid(verticalLine);
+        expect(testHorizontal).toEqual(horizontalLine);
+
+        const testVertical = evolveGrid(testHorizontal);
+        expect(testVertical).toEqual(verticalLine);
     });
 });

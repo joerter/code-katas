@@ -1,85 +1,42 @@
 import { Grid } from "./grid";
+import { isAlive } from "./is-alive";
 
-// export function getNeighborCount(grid: Grid, yCoordinate: number, xCoordinate: number) {
-//     let xOffset = -1;
-//     let yOffset = -1;
-//     let neighborCount = 0;
-//     while (yOffset < 2) {
-//         console.log('yCounter', yOffset);
-//         let derivedY = yCoordinate + yOffset;
-//         console.log('derivedY', derivedY);
-//         if (derivedY < 0 || derivedY > grid.length) {
-//             yOffset++;
-//             console.log('yCounter++ result', yOffset);
-//             continue;
-//         }
-//         while (xOffset < 2) {
-//             console.log('xCounter', xOffset);
-//             let derivedX = xCoordinate + xOffset;
-//             console.log('derivedX', derivedX);
-
-//             if (derivedX < 0 || derivedX > grid[0].length) {
-//                 xOffset++;
-//                 console.log('xCounter++  line 5 result', xOffset);
-//                 continue;
-//             }
-//             if (xOffset === 0 && yOffset === 0) {
-//                 xOffset++;
-//                 console.log('xCounter++ line 28 result', xOffset);
-//                 continue;
-//             }
-//             let currentCoordinate = grid[derivedY][derivedX];
-//             console.log('currentCoordinate', currentCoordinate);
-//             if (currentCoordinate === '*') {
-//                 neighborCount++;
-//                 console.log('neighborCount', neighborCount);
-//             }
-//             xOffset++;
-//             console.log('xCounter++ line 38', xOffset);
-//         }
-//         xOffset = -1;
-//         yOffset++;
-//         console.log('yCounter++ line 41', yOffset);
-//     }
-//     return neighborCount;
-// }
-
-
-
-export function getNeighborCount(grid: Grid, yCoordinate: number, xCoordinate: number) {
+export function getNeighborCount(grid: Grid, row: number, column: number) {
     let neighborCount = 0;
 
-    for (let yOffset = -1; yOffset < 2; yOffset++) {
-        console.log('yCounter', yOffset);
-        let derivedY = yCoordinate + yOffset;
-        console.log('derivedY', derivedY);
-        if (derivedY < 0 || derivedY > grid.length) {
-            console.log('yCounter++ result', yOffset);
+    for (let rowOffset = -1; rowOffset <= 1; rowOffset++) {
+        const rowToCheck = row + rowOffset;
+
+        if (!isRowInGrid(rowToCheck, grid)) {
             continue;
         }
-        for (let xOffset = -1; xOffset < 2; xOffset++) {
-            console.log('xCounter', xOffset);
-            let derivedX = xCoordinate + xOffset;
-            console.log('derivedX', derivedX);
 
-            if (derivedX < 0 || derivedX > grid[0].length) {
-                console.log('xCounter++  line 5 result', xOffset);
+        for (let columnOffset = -1; columnOffset <= 1; columnOffset++) {
+            const columnToCheck = column + columnOffset;
+
+            if (isCellToCheck(columnOffset, rowOffset) || !isColumnInGrid(columnToCheck, grid)) {
                 continue;
             }
-            if (xOffset === 0 && yOffset === 0) {
-                console.log('xCounter++ line 28 result', xOffset);
-                continue;
-            }
-            let currentCoordinate = grid[derivedY][derivedX];
-            console.log('currentCoordinate', currentCoordinate);
-            if (currentCoordinate === '*') {
+
+            const currentCell = grid[rowToCheck][columnToCheck];
+            if (isAlive(currentCell)) {
                 neighborCount++;
-                console.log('neighborCount', neighborCount);
             }
-            console.log('xCounter++ line 38', xOffset);
         }
-        console.log('yCounter++ line 41', yOffset);
     }
 
     return neighborCount;
+}
+
+
+function isCellToCheck(columnOffset: number, rowOffset: number) {
+    return columnOffset === 0 && rowOffset === 0;
+}
+
+function isColumnInGrid(derivedX: number, grid: Grid) {
+    return derivedX >= 0 && derivedX < grid[0].length;
+}
+
+function isRowInGrid(derivedY: number, grid: Grid) {
+    return derivedY >= 0 && derivedY < grid.length;
 }
